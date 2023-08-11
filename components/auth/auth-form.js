@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import classes from './auth-form.module.css';
 import { useRef } from 'react';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 const createUser =  async (email, password) => {
  const response = await fetch('/api/auth/signup', {
@@ -28,6 +29,8 @@ function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [message, setMessage] = useState('');
 
+  const router = useRouter();
+
   useEffect(() => {
    const  timer = setTimeout(() => setMessage(''), 3000);
    return () => clearTimeout(timer);
@@ -51,6 +54,7 @@ function AuthForm() {
       })
       
       if (!result.error) {
+        router.replace('/profile')
         setMessage('You successfully logIn!')
       } else {
         setMessage(result.error)
