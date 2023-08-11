@@ -1,19 +1,20 @@
 import { hashPassword, verifyPassword } from "@/lib/auth";
 import { connectToDatabase } from "@/lib/db";
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 async function handler(req, res) {
   if (req.method !== 'PATCH') {
     return;
   }
 
-  const session = await getSession({req: req});
-
+  const session = await getServerSession(req, res, authOptions);
+  console.log(session)
   if (!session) {
     res.status(401).json({message: 'Not authentificated!'})
   }
 
-  const userEmail = session.user.email;
+  const userEmail = session?.user.email;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
 
@@ -31,7 +32,7 @@ async function handler(req, res) {
 
   const currentPassword = user.password;
 
-  const passwordsAreEqual = verifyPassword(oldPassword, currentPassword);
+  const passwordsAreEqual = await verifyPassword(oldPassword, currentPassword);
 
   if (!passwordsAreEqual) {
     res.status(403).json({message: 'Invalid password!'});
@@ -46,7 +47,7 @@ async function handler(req, res) {
   client.close();
 
   res.status(200).json({message: 'Password updated!'});
-  
+
 }
 
 export default handler;
