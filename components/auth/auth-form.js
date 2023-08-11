@@ -49,6 +49,7 @@ function AuthForm() {
         email: enteredEmail,
         password: enteredPassword
       })
+      
       if (!result.error) {
         setMessage('You successfully logIn!')
       } else {
