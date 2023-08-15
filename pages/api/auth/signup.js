@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const { email, password } = data;
 
   const client = await connectToDatabase();
-  
+
   if (!email || !email.includes('@') || !password || password.trim().length < 7) {
     res.status(422).json({message: 'Invalid input - password should also be at least 7 characters long.'})
     client.close()
