@@ -4,6 +4,7 @@ import classes from './main-navigation.module.css';
 
 function MainNavigation() {
   const {data: session, status} = useSession();
+  const loading = status === 'loading';
 
   const logoutHandler = () => {
     signOut()
@@ -17,7 +18,7 @@ function MainNavigation() {
       <nav>
         <ul>
           {
-            !session && status !== 'authenticated' && (
+            !session && !loading && (
             <li>
               <Link href='/auth'>Login</Link>
             </li>)
