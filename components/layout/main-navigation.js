@@ -1,10 +1,15 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import classes from './main-navigation.module.css';
+import { useEffect } from 'react';
 
 function MainNavigation() {
   const {data: session, status} = useSession();
   const loading = status === 'loading';
+  
+  useEffect(() => {
+
+  }, [session])
 
   const logoutHandler = () => {
     signOut()
