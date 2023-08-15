@@ -5,14 +5,10 @@ import { useEffect } from 'react';
 
 function MainNavigation() {
   const {data: session, status} = useSession();
-  const loading = status === 'loading';
-  
-  useEffect(() => {
-
-  }, [session])
+  const loading = status === 'authenticated';
 
   const logoutHandler = () => {
-    signOut()
+    signOut();
   }
 
   return (
