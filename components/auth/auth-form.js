@@ -3,6 +3,7 @@ import classes from './auth-form.module.css';
 import { useRef } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import cn from 'classnames';
 
 const createUser =  async (email, password) => {
  const response = await fetch('/api/auth/signup', {
@@ -52,19 +53,23 @@ function AuthForm() {
         email: enteredEmail,
         password: enteredPassword
       })
-      
+       
       if (!result.error) {
         router.replace('/profile')
+        setMessage('')
         setMessage('You successfully logIn!')
       } else {
-        setMessage(result.error)
+         setMessage('')
+        setMessage('Could not log you in!')
       }
     } else {
       try {
        const result = await createUser(enteredEmail, enteredPassword);
+       setMessage('')
        setMessage(result.message)
       } catch (error) {
-        setMessage(error.message)
+       setMessage('')
+       setMessage(error.message)
       }
     }
   }
@@ -91,7 +96,7 @@ function AuthForm() {
             {isLogin ? 'Create new account' : 'Login with existing account'}
           </button>
         </div>
-        <div>{message}</div>
+        <div style = {{color:  (message === 'Could not log you in!' || message === 'User exists already!' || message === 'Invalid input - password should also be at least 7 characters long.') ? 'red' : 'green'}}>{message}</div>
       </form>
     </section>
   );

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { getSession } from 'next-auth/react';
 
 function UserProfile() {
+  const [message, setMessage] = useState('');
+
 /*   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,6 +23,11 @@ function UserProfile() {
   }
  */
 
+  useEffect(() => {
+    const  timer = setTimeout(() => setMessage(''), 3000);
+    return () => clearTimeout(timer);
+  },[message])
+
   const changePasswordHandler = async (passwordData) => {
     const response = await fetch('/api/user/change-password', {
       method: 'PATCH',
@@ -33,13 +40,13 @@ function UserProfile() {
 
     const data = await response.json();
 
-    console.log(data)
+    setMessage(data.message)
   }
 
   return (
     <section className={classes.profile}>
       <h1>Your User Profile</h1>
-      <ProfileForm onChangePassword = {changePasswordHandler}/>
+      <ProfileForm onChangePassword = {changePasswordHandler} message = {message}/>
     </section>
   );
 }

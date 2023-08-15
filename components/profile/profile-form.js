@@ -32,6 +32,7 @@ function ProfileForm(props) {
       <div className={classes.action}>
         <button>Change Password</button>
       </div>
+      <div style={{color: props.message === 'Not authentificated!' || props.message === 'User not found' || props.message === 'Invalid password!' ? 'red' : 'green' }}>{props.message}</div>
     </form>
   );
 }
