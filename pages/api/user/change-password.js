@@ -12,7 +12,7 @@ async function handler(req, res) {
   if (!session) {
     res.status(401).json({message: 'Not authentificated!'})
   }
-
+  console.log()
   const userEmail = session?.user.email;
   const oldPassword = req.body.oldPassword;
   const newPassword = req.body.newPassword;
