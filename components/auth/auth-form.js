@@ -70,6 +70,7 @@ function AuthForm() {
       } catch (error) {
        setMessage('')
        setMessage(error.message)
+       console.log(error)
       }
     }
   }
