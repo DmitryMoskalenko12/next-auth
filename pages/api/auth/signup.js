@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     client.close()
     return;
   }
-   
+  /*  connect */
   const db = client.db();
   
   const existingUser = await db.collection('users').findOne({email: email});
