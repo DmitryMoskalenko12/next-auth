@@ -8,6 +8,7 @@ function MainNavigation() {
   const {data: session, status} = useSession();
   const loading = status === 'authenticated';
   const router = useRouter();
+
   const logoutHandler =  async () => {
     const data = await signOut({redirect: false, callbackUrl: "/auth"});
     router.push(data.url)
@@ -27,12 +28,12 @@ function MainNavigation() {
             </li>)
           }
          {
-          session && (<li>
+          session && loading && (<li>
           <Link href='/profile'>Profile</Link>
         </li>)
          }
           {
-            session && (<li>
+            session && loading && (<li>
             <button onClick={logoutHandler}>Logout</button>
           </li>)
           }
