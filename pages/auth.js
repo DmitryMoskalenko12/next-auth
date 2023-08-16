@@ -18,7 +18,7 @@ function AuthPage() {
   },[router])
 
   if (isLoading) {
-    return <p style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Loading...</p>
+    return <p className='loading'>Loading...</p>
   }
 
   return <AuthForm />;
