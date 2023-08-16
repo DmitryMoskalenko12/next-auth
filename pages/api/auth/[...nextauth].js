@@ -34,7 +34,11 @@ export const authOptions = {
         client.close();
 
         return {email: user.email}
-      }
+      },
+      credentials: {
+        email: {},
+        password: {},
+      },
      })
   ]
 }
